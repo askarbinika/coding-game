@@ -4,49 +4,35 @@
 
 using namespace std;
 
-int main(){
+int countOnes(string s) {
+	int max_ones=0;
+	int current_ones=0;
 
-    string s;
-    int countof1=1;
-    vector <int> ones;
-    int largestsequence;
-
-    cin>>s;
-
-    for(int i=0; i<s.length(); i++){
-        if (s.at(i)==0){
-            s.at(i)==1;
-
-            for (int j; j<s.length(); j++){
-                if ((s.at(j)==1) && (s.at(j)=s.at(j+1))){
-                    countof1++;
-                    cout<<countof1;
-                }
-                else {
-                        ones.push_back(countof1);
-                        countof1=1;
-                }
-
-            }
-            ones.push_back(countof1);
-            s.at(i)==0;
-        }
-        else if ((s.at(i)==1)&&(s.at(i)==s.at(i+1))  ){
-            countof1++;
-            ones.push_back(countof1);
-        }
-
-    }
-    for (int i=0; i<ones.size(); i++){
-        if (ones[i]>ones[i+1]){
-            largestsequence=ones[i];
-        }
-    }
-
-    cout << largestsequence << endl;
-
+	for (auto c : s) {
+		if (c == '1') current_ones++;
+		if (c == '0') {
+				max_ones=max(max_ones,current_ones);
+				current_ones=0;
+		}
+	}
+	return max_ones;
 }
 
+int main() {
+	string s;
+	int largestsequence=0;
 
+	cin >> s;
 
+	for(int i=0; i<s.length(); i++){
+		if (s[i] == '0') {
+			s[i] = '1';
+			if (countOnes(s) > largestsequence) {
+				largestsequence=countOnes(s);
+			}
+			s[i] = '0';
+		}
+	}
+	cout << largestsequence << endl;
+}
 
